@@ -46,4 +46,6 @@ public class Pizza {
 		this.prix = prix;
 	}
 
+	
+	
 }
