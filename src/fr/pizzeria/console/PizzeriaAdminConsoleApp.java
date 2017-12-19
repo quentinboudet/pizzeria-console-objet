@@ -33,7 +33,8 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("4. Supprimer une pizza");
 				System.out.println("99. Sortir");
 	
-				switch(in.nextLine()) {
+				String menu = in.nextLine();
+				switch(menu) {
 				case "1":
 					System.out.println("Liste des pizzas");
 					int i = 0;
@@ -45,6 +46,15 @@ public class PizzeriaAdminConsoleApp {
 					break;
 				case "2":
 					System.out.println("Ajout d'une nouvelle pizza");
+					System.out.println("Veuillez saisir le code");
+					String code = in.nextLine();
+					System.out.println("Veuillez saisir le nom (sans espace)");
+					String nom = in.nextLine();
+					System.out.println("Veuillez saisir le prix");
+					double prix = in.nextDouble();
+					
+					tableauPizza[Pizza.nextId] = new Pizza(code, nom, prix);
+					
 					break;
 				case "3":
 					System.out.println("Mise à jour d'une pizza");
