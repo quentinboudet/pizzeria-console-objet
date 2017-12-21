@@ -5,19 +5,16 @@ package fr.pizzeria.model;
  *
  */
 public class Pizza {
-	public static int nextId = 0;
-	public int id ;
 	public String code;
 	public String nom;
 	public double prix;
 
-	/** Constructeur: l'id est généré avec un compteur
+	/** Constructeur: 
 	 * @param code
 	 * @param nom
 	 * @param prix
 	 */
 	public Pizza(String code, String nom, double prix) {
-		this.id = nextId++;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
