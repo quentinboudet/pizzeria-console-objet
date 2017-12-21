@@ -23,9 +23,6 @@ public class Pizza {
 		this.prix = prix;
 
 	}
-	public static void main(String[] args) {
-
-	}
 	
 	public String getCode() {
 		return code;

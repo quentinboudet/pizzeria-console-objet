@@ -3,6 +3,7 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.exception.PizzaException;
 
 public class ModifierPizzaOptionMenu extends OptionMenu{
 	
@@ -12,7 +13,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu{
 		this.libelleOption = "Mise à jour d'une pizza";
 	}
 
-	public boolean execute() {
+	public boolean execute() throws PizzaException {
 		super.execute();
 		this.dao.findAllPizzas();
 		System.out.println("Veuillez choisir la pizza à modifier");
@@ -20,7 +21,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu{
 		
 		String choix = this.in.nextLine();
 		if(!choix.equals("99")) {
-			this.dao.updatePizza(choix, saisirCode(in), saisirNom(in), saisirPrix(in));
+			this.dao.updatePizza(choix, saisirCode(this.in, false), saisirNom(this.in, false), saisirPrix(this.in, false));
 		}
 
 		return true;

@@ -1,8 +1,10 @@
 package fr.pizzeria.console;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.exception.PizzaException;
 import fr.pizzeria.ihm.AjouterPizzaOptionMenu;
 import fr.pizzeria.ihm.ListerPizzasOptionMenu;
 import fr.pizzeria.ihm.ModifierPizzaOptionMenu;
@@ -34,15 +36,30 @@ public class PizzeriaAdminConsoleApp {
 					System.out.println(option[i].getLibelle());
 				}
 				System.out.println("99. Sortir");
-	
-				int menu = in.nextInt();
-				if(menu == 99) {
-					System.out.println("Au revoir :(");
-					exit = true;
-					break;
+
+				try {
+					int menu = in.nextInt();
+					in.nextLine();
+					if(menu == 99) {
+						System.out.println("Au revoir :(");
+						exit = true;
+						break;
+					}
+					else {
+						option[menu - 1].execute();
+					}
 				}
-				else {
-					option[menu - 1].execute();
+				catch(PizzaException e) {
+					System.out.println(e.getMessage());
+				}
+				catch(NumberFormatException e) {
+					System.out.println("Vous devez utiliser un nombre avec \".\" pour délimiter la saisie");
+				}
+				catch(ArrayIndexOutOfBoundsException  | InputMismatchException e) {
+					System.out.println("Cette option n'existe pas");
+					if(e.getClass().getName() == "java.util.InputMismatchException"){
+						in.nextLine();
+					}
 				}
 			}
 		}

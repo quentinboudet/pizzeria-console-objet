@@ -3,6 +3,7 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.exception.PizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaOptionMenu extends OptionMenu{
@@ -13,9 +14,9 @@ public class AjouterPizzaOptionMenu extends OptionMenu{
 		this.libelleOption = "Ajout d'une nouvelle pizza";
 	}
 	
-	public boolean execute() {
+	public boolean execute() throws PizzaException{
 		super.execute();
-		Pizza pizza = new Pizza(super.saisirCode(in), super.saisirNom(in), super.saisirPrix(in));
+		Pizza pizza = new Pizza(super.saisirCode(this.in, true), super.saisirNom(this.in, true), super.saisirPrix(this.in, true));
 		
 		this.dao.saveNewPizza(pizza);
 		return true;

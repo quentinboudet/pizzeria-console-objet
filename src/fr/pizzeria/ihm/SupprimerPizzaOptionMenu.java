@@ -3,6 +3,7 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.exception.PizzaException;
 
 public class SupprimerPizzaOptionMenu extends OptionMenu {
 	
@@ -12,13 +13,13 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		this.libelleOption = "Suppression d'une pizza";
 	}
 
-	public boolean execute() {
+	public boolean execute() throws PizzaException {
 		super.execute();
 		this.dao.findAllPizzas();
 		System.out.println("Veuillez choisir la pizza à supprimer");
 		System.out.println("99 pour abandonner");
 		
-		String choix = in.nextLine();
+		String choix = this.in.nextLine();
 		if(!choix.equals("99")) {
 			this.dao.deletePizza(choix);
 		}
