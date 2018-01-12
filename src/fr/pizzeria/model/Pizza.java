@@ -10,6 +10,11 @@ public class Pizza {
 	public double prix;
 
 	/** Constructeur: 
+	 */
+	public Pizza() {
+	}
+	
+	/** Constructeur: 
 	 * @param code
 	 * @param nom
 	 * @param prix

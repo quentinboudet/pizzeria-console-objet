@@ -1,9 +1,10 @@
 package fr.pizzeria.exception;
 
+import static fr.pizzeria.console.PizzeriaAdminConsoleApp.CONSOLE;
 public class PizzaException extends Exception{
 
 	public PizzaException(String mess) {
-		System.out.println("PizzaException " + mess);
+		CONSOLE.info("PizzaException " + mess);
 	}
 
 }

@@ -1,19 +1,22 @@
 package fr.pizzeria.ihm;
 
+import static fr.pizzeria.console.PizzeriaAdminConsoleApp.CONSOLE;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoImpl;
 import fr.pizzeria.exception.PizzaException;
 
 public abstract class OptionMenu{
 	Scanner in;
-	PizzaDaoImpl dao;
+	IPizzaDao dao;
 	String libelle;
 	String libelleOption;
 	static String facultatif = ", ou entree pour passer";
 	
-	public OptionMenu(Scanner in, PizzaDaoImpl dao){
+	public OptionMenu(Scanner in, IPizzaDao dao){
 		this.in = in;
 		this.dao = dao;
 	}
@@ -24,7 +27,7 @@ public abstract class OptionMenu{
 	}
 	
 	public boolean execute() throws PizzaException {
-		System.out.println(this.libelleOption);
+		CONSOLE.info(this.libelleOption);
 		return true;
 	}
 	
@@ -39,7 +42,7 @@ public abstract class OptionMenu{
 		if(!obligatoire) {
 			addMess += OptionMenu.facultatif;
 		}
-		System.out.println("Veuillez saisir le code" + addMess);
+		CONSOLE.info("Veuillez saisir le code (3 lettres)" + addMess);
 		return in.nextLine();
 	}
 	/**
@@ -52,7 +55,7 @@ public abstract class OptionMenu{
 		if(!obligatoire) {
 			addMess += OptionMenu.facultatif;
 		}
-		System.out.println("Veuillez saisir le nom (sans espace)" + addMess);
+		CONSOLE.info("Veuillez saisir le nom (sans espace)" + addMess);
 		return in.nextLine();
 	}
 	/**
@@ -65,14 +68,14 @@ public abstract class OptionMenu{
 		if(!obligatoire) {
 			addMess += OptionMenu.facultatif;
 		}
-		System.out.println("Veuillez saisir le prix" + addMess);
+		CONSOLE.info("Veuillez saisir le prix (sous la même forme que 11 ou 10.50)" + addMess);
 		try{
 			double prix = in.nextDouble();//probleme on reste coincé ici si on tape entrée directement
 			in.nextLine();
 			return prix;
 		}
 		catch(InputMismatchException e) {
-			System.out.println("veuillez saisir un prix avec uniquement des chiffres et un \".\" au maximum");
+			CONSOLE.info("veuillez saisir un prix avec uniquement des chiffres et un \".\" au maximum");
 		}
 		return 0;
 	}

@@ -1,11 +1,15 @@
 package fr.pizzeria.dao;
 
+import static fr.pizzeria.console.PizzeriaAdminConsoleApp.CONSOLE;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.pizzeria.exception.PizzaException;
 import fr.pizzeria.model.Pizza;
-
 public class PizzaDaoImpl implements IPizzaDao{
 
 	//initialisation des pizzas
@@ -22,40 +26,10 @@ public class PizzaDaoImpl implements IPizzaDao{
 		this.pizzas.add( new Pizza("ORI", "L'orientale", 13.50 ));
 		this.pizzas.add( new Pizza("IND", "L'indienne", 14.00 ));
 	}
-	
-	/**
-	 * @param choix : Code d'une pizza
-	 * @return : Index de la pizza dans le tableau
-	 * @throws PizzaException 
-	 */
-	public int pizzaCodeId(String choix) throws PizzaException {
-		boolean trouvePizza = false;
-		int i = 0;
-		do {
-			
-			while(this.pizzas.get(i) == null) {//on évite les élément inexistants/supprimés (périmé)
-				i++;
-			}
-			if(choix.equals(this.pizzas.get(i).code)) {//on trouve l'élément, on stop la boucle
-				trouvePizza = true;
-				break;
-			}
-			i++;
-		}while(i < this.pizzas.size());//on arette si on ne trouve rien
-		
-		if(!trouvePizza) {
-			throw new PizzaException("Aucune pizza ne correspond à ce code");
-		}
-		return i;
-	}
 
 	@Override
-	public void findAllPizzas() {
-		for(int i = 0; i < this.pizzas.size(); i++) {
-			if(this.pizzas.get(i) != null ) {
-				System.out.println(this.pizzas.get(i).code + " -> " + this.pizzas.get(i).nom + " (" + this.pizzas.get(i).prix + " €)");
-			}
-		}
+	public List<Pizza> findAllPizzas() {		
+		return this.pizzas;
 	}
 
 	@Override
@@ -86,5 +60,24 @@ public class PizzaDaoImpl implements IPizzaDao{
 		int i = this.pizzaCodeId(codePizza);
 	
 		this.pizzas.remove(i);
+	}
+
+	@Override
+	public void Init() {
+		this.pizzas.clear();
+		
+		this.pizzas.add( new Pizza("PEP", "Pépéroni", 12.50 ));
+		this.pizzas.add( new Pizza("MAR", "Margherita", 14.00 ));
+		this.pizzas.add( new Pizza("REIN", "La Reine", 11.50 ));
+		this.pizzas.add( new Pizza("FRO", "LA 4 froamges", 12.00 ));
+		this.pizzas.add( new Pizza("CAN", "La cannibale", 12.50 ));
+		this.pizzas.add( new Pizza("SAV", "La savoyarde", 13.00 ));
+		this.pizzas.add( new Pizza("ORI", "L'orientale", 13.50 ));
+		this.pizzas.add( new Pizza("IND", "L'indienne", 14.00 ));
+	}
+
+	@Override
+	public void Close() {
+		
 	}
 }
